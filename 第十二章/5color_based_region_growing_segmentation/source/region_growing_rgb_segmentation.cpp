@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <boost/thread/thread.hpp>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/search/search.h>
@@ -55,10 +56,10 @@ main (int argc, char** argv)
 	end = time(0); 
 	diff[0] = difftime (end, start); 
 	PCL_INFO ("\Loading pcd file takes(seconds): %d\n", diff[0]); 
-	pcl::search::Search <pcl::PointXYZRGB>::Ptr tree = boost::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
+	pcl::search::Search <pcl::PointXYZRGB>::Ptr tree = std::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
 
 	//Noraml estimation step(1 parameter)
-	pcl::search::Search<pcl::PointXYZRGB>::Ptr tree1 = boost::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
+	pcl::search::Search<pcl::PointXYZRGB>::Ptr tree1 = std::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
 	pcl::PointCloud <pcl::Normal>::Ptr normals (new pcl::PointCloud <pcl::Normal>);
 	pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> normal_estimator;
 	normal_estimator.setSearchMethod (tree);

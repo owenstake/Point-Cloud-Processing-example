@@ -1,6 +1,7 @@
 
 	#include <boost/thread/thread.hpp>
 	#include <boost/filesystem.hpp>
+	#include <pcl/registration/distances.h>
 	#include <pcl/io/io.h>
 	#include <pcl/io/pcd_io.h>
 	#include <pcl/features/integral_image_normal.h>
@@ -133,7 +134,8 @@
 	 
 			//点云序列读取模块
 			boost::filesystem::directory_iterator end_itr;
-		if (boost::filesystem::is_directory (dir_))
+		//if (boost::filesystem::is_directory (dir_))
+		if (1)
 		{
 		for (boost::filesystem::directory_iterator itr (dir_); itr != end_itr; ++itr)
 		{
@@ -257,7 +259,7 @@
 	  
 			//聚类分割模块
 			double min=100,max=100000,nab=0.02;
-			pcl::search::Search<pcl::PointXYZRGB>::Ptr tree = boost::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
+			pcl::search::Search<pcl::PointXYZRGB>::Ptr tree = std::shared_ptr<pcl::search::Search<pcl::PointXYZRGB> > (new pcl::search::KdTree<pcl::PointXYZRGB>);
 			pcl::EuclideanClusterExtraction<pcl::PointXYZRGB> reg;
 			reg.setMinClusterSize (min);
 			reg.setMaxClusterSize (max);
@@ -319,7 +321,7 @@
 		}
 			// ICP配准模块
 			pcl::IterativeClosestPoint<pcl::PointXYZRGB, pcl::PointXYZRGB> icp;
-			icp.setInputCloud(ROI_forth);
+			icp.setInputSource(ROI_forth);
 			icp.setInputTarget (ROI_back);
 			icp.setRANSACOutlierRejectionThreshold( 0.01 ); 
 			icp.setMaxCorrespondenceDistance (0.1); 

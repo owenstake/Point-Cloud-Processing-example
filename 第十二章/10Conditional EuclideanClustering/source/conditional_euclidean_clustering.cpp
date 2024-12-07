@@ -28,7 +28,9 @@ bool
 bool
 	enforceCurvatureOrIntensitySimilarity (const PointTypeFull& point_a, const PointTypeFull& point_b, float squared_distance)
 {
-	Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.normal, point_b_normal = point_b.normal;
+	// Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.normal, point_b_normal = point_b.normal;
+    Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.getNormalVector3fMap(); 
+    Eigen::Map<const Eigen::Vector3f> point_b_normal = point_b.getNormalVector3fMap();
 	if (fabs ((float)point_a.intensity - (float)point_b.intensity) < 5.0f)
 		return (true);
 	if (fabs (point_a_normal.dot (point_b_normal)) < 0.05)
@@ -39,7 +41,10 @@ bool
 bool
 	customRegionGrowing (const PointTypeFull& point_a, const PointTypeFull& point_b, float squared_distance)
 {
-	Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.normal, point_b_normal = point_b.normal;
+	// Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.normal, point_b_normal = point_b.normal;
+    Eigen::Map<const Eigen::Vector3f> point_a_normal = point_a.getNormalVector3fMap(); 
+    Eigen::Map<const Eigen::Vector3f> point_b_normal = point_b.getNormalVector3fMap();
+
 	if (squared_distance < 10000)
 	{
 		if (fabs ((float)point_a.intensity - (float)point_b.intensity) < 8.0f)

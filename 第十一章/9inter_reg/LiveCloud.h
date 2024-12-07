@@ -1,7 +1,7 @@
 ﻿#ifndef _LIVECLOUD__ 
 #define _LIVECLOUD__
-#include "stdafx_aq.h"
-#include "AQlib_Export.h"
+// #include "stdafx_aq.h"
+// #include "AQlib_Export.h"
 
 namespace AQ
 {

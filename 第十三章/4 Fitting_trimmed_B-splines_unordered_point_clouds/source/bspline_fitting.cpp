@@ -10,6 +10,8 @@
 using namespace pcl::console;
 typedef pcl::PointXYZ Point;
 
+#define pcl_isnan(x) ((x) != (x))
+
 void
 PointCloud2Vector3d (pcl::PointCloud<Point>::Ptr cloud, pcl::on_nurbs::vector_vec3d &data);
 

@@ -82,7 +82,7 @@ main (int argc, char** argv)
 	diff[0] = difftime (end, start); 
 	PCL_INFO ("\Loading pcd file takes(seconds): %d\n", diff[0]); 
 	//Noraml estimation step(1 parameter)
-	pcl::search::Search<pcl::PointXYZ>::Ptr tree = boost::shared_ptr<pcl::search::Search<pcl::PointXYZ> > (new pcl::search::KdTree<pcl::PointXYZ>);//创建一个指向kd树搜索对象的共享指针
+	pcl::search::Search<pcl::PointXYZ>::Ptr tree = std::shared_ptr<pcl::search::Search<pcl::PointXYZ> > (new pcl::search::KdTree<pcl::PointXYZ>);//创建一个指向kd树搜索对象的共享指针
 	pcl::PointCloud <pcl::Normal>::Ptr normals (new pcl::PointCloud <pcl::Normal>);
 	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normal_estimator;//创建法线估计对象
 	normal_estimator.setSearchMethod (tree);//设置搜索方法

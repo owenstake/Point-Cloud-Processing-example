@@ -1,6 +1,9 @@
+#define BOOST_TIMER_ENABLE_DEPRECATED
+
 #include <iostream>
 #include <pcl/point_types.h>
 #include <pcl/features/feature_evaluation/feature_evaluation_framework.h>
+// #include "feature_evaluation_framework.h"
 
 int main (int argc, char** argv)
 {

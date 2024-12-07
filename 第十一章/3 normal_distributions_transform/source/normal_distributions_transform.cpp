@@ -44,7 +44,7 @@ main (int argc, char** argv)
   //设置匹配迭代的最大次数
   ndt.setMaximumIterations (35);
   // 设置要配准的点云
-  ndt.setInputCloud (filtered_cloud);
+  ndt.setInputSource (filtered_cloud);
   //设置点云配准目标
   ndt.setInputTarget (target_cloud);
   //设置使用机器人测距法得到的初始对准估计结果

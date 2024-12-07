@@ -16,7 +16,7 @@ typedef pcl::PointCloud<PointLT> PointLCloudT;
 void addSupervoxelConnectionsToViewer (PointT &supervoxel_center,
 	PointCloudT &adjacent_supervoxel_centers,
 	std::string supervoxel_name,
-	boost::shared_ptr<pcl::visualization::PCLVisualizer> & viewer);
+	std::shared_ptr<pcl::visualization::PCLVisualizer> & viewer);
 
 
 int
@@ -33,7 +33,7 @@ int
 	}
 
 
-	PointCloudT::Ptr cloud = boost::make_shared <PointCloudT> ();
+	PointCloudT::Ptr cloud = std::make_shared <PointCloudT> ();
 	pcl::console::print_highlight ("Loading point cloud...\n");
 	if (pcl::io::loadPCDFile<PointT> (argv[1], *cloud))
 	{
@@ -84,7 +84,7 @@ int
 	super.extract (supervoxel_clusters);
 	pcl::console::print_info ("Found %d supervoxels\n", supervoxel_clusters.size ());
 
-	boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("点云库PCL学习教程第二版-超体素分割"));
+	std::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("点云库PCL学习教程第二版-超体素分割"));
 	viewer->setBackgroundColor (1,1,1);
 
 	PointCloudT::Ptr voxel_centroid_cloud = super.getVoxelCentroidCloud ();
@@ -156,7 +156,7 @@ void
 	addSupervoxelConnectionsToViewer (PointT &supervoxel_center,
 	PointCloudT &adjacent_supervoxel_centers,
 	std::string supervoxel_name,
-	boost::shared_ptr<pcl::visualization::PCLVisualizer> & viewer)
+    std::shared_ptr<pcl::visualization::PCLVisualizer> & viewer)
 {
 
 	int i=0;

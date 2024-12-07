@@ -5,16 +5,16 @@
 #include <pcl/surface/gp3.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <boost/thread/thread.hpp>
-
+#include <pcl/point_cloud.h>
 
 int
 main (int argc, char** argv)
 {
   // Load input file into a PointCloud<T> with an appropriate type
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-  sensor_msgs::PointCloud2 cloud_blob;
+  pcl::PCLPointCloud2  cloud_blob;
   pcl::io::loadPCDFile ("table_scene_lms400_downsampled.pcd", cloud_blob);
-  pcl::fromROSMsg (cloud_blob, *cloud);
+  pcl::fromPCLPointCloud2 (cloud_blob, *cloud);
   //* the data should be available in cloud
 
   // Normal estimation*

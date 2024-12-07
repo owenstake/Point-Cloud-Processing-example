@@ -9,6 +9,7 @@
 #include <pcl/keypoints/narf_keypoint.h>
 #include <pcl/features/narf_descriptor.h>
 #include <pcl/console/parse.h>
+#include <pcl/common/file_io.h> // for getFilenameWithoutExtension
 
 typedef pcl::PointXYZ PointType;
 // -----参数-----
@@ -43,16 +44,18 @@ setViewerPose (pcl::visualization::PCLVisualizer& viewer, const Eigen::Affine3f&
   Eigen::Vector3f pos_vector = viewer_pose * Eigen::Vector3f (0, 0, 0);
   Eigen::Vector3f look_at_vector = viewer_pose.rotation () * Eigen::Vector3f (0, 0, 1) + pos_vector;
   Eigen::Vector3f up_vector = viewer_pose.rotation () * Eigen::Vector3f (0, -1, 0);
-  viewer.camera_.pos[0] = pos_vector[0];
-  viewer.camera_.pos[1] = pos_vector[1];
-  viewer.camera_.pos[2] = pos_vector[2];
-  viewer.camera_.focal[0] = look_at_vector[0];
-  viewer.camera_.focal[1] = look_at_vector[1];
-  viewer.camera_.focal[2] = look_at_vector[2];
-  viewer.camera_.view[0] = up_vector[0];
-  viewer.camera_.view[1] = up_vector[1];
-  viewer.camera_.view[2] = up_vector[2];
-  viewer.updateCamera ();
+  // viewer.camera_.pos[0] = pos_vector[0];
+  // viewer.camera_.pos[1] = pos_vector[1];
+  // viewer.camera_.pos[2] = pos_vector[2];
+  // viewer.camera_.focal[0] = look_at_vector[0];
+  // viewer.camera_.focal[1] = look_at_vector[1];
+  // viewer.camera_.focal[2] = look_at_vector[2];
+  // viewer.camera_.view[0] = up_vector[0];
+  // viewer.camera_.view[1] = up_vector[1];
+  // viewer.camera_.view[2] = up_vector[2];
+  // viewer.updateCamera ();
+    viewer.setCameraPosition(pos_vector[0], pos_vector[1], pos_vector[2], look_at_vector[0],   
+        look_at_vector[1], look_at_vector[2], up_vector[0], up_vector[1], up_vector[2]);
 }
 // -----主函数-----
 // --------------
@@ -122,7 +125,8 @@ main (int argc, char** argv)
 float noise_level = 0.0;
   float min_range = 0.0f;
   int border_size = 1;
-  boost::shared_ptr<pcl::RangeImage> range_image_ptr (new pcl::RangeImage);
+  // boost::shared_ptr<pcl::RangeImage> range_image_ptr (new pcl::RangeImage);
+    const std::shared_ptr<pcl::RangeImage> range_image_ptr(new pcl::RangeImage);
   pcl::RangeImage& range_image = *range_image_ptr;   
   range_image.createFromPointCloud (point_cloud, angular_resolution, pcl::deg2rad (360.0f), pcl::deg2rad (180.0f),
                                    scene_sensor_pose, coordinate_frame, noise_level, min_range, border_size);

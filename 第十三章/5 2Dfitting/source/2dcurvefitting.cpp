@@ -15,6 +15,9 @@
 
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/console/parse.h>
+
+#define pcl_isnan(x) ((x) != (x))
+
 pcl::visualization::PCLVisualizer viewer ("Curve Fitting 2D");
 
 void

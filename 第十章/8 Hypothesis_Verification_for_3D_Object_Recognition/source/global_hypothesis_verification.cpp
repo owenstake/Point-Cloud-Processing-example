@@ -51,6 +51,7 @@
 #include <pcl/kdtree/impl/kdtree_flann.hpp>
 #include <pcl/common/transforms.h> 
 #include <pcl/console/parse.h>
+#include <pcl/filters/uniform_sampling.h>
 
 typedef pcl::PointXYZRGBA PointType;
 typedef pcl::Normal NormalType;
@@ -261,14 +262,16 @@ main (int argc,
   pcl::UniformSampling<PointType> uniform_sampling;
   uniform_sampling.setInputCloud (model);
   uniform_sampling.setRadiusSearch (model_ss_);
-  uniform_sampling.compute (sampled_indices);
-  pcl::copyPointCloud (*model, sampled_indices.points, *model_keypoints);
+  // uniform_sampling.compute (sampled_indices);
+  // pcl::copyPointCloud (*model, sampled_indices.points, *model_keypoints);
+  uniform_sampling.filter(*model_keypoints);   //ÂË²¨
   std::cout << "Model total points: " << model->size () << "; Selected Keypoints: " << model_keypoints->size () << std::endl;
 
   uniform_sampling.setInputCloud (scene);
   uniform_sampling.setRadiusSearch (scene_ss_);
-  uniform_sampling.compute (sampled_indices);
-  pcl::copyPointCloud (*scene, sampled_indices.points, *scene_keypoints);
+  // uniform_sampling.compute (sampled_indices);
+  // pcl::copyPointCloud (*scene, sampled_indices.points, *scene_keypoints);
+  uniform_sampling.filter(*scene_keypoints);   //ÂË²¨
   std::cout << "Scene total points: " << scene->size () << "; Selected Keypoints: " << scene_keypoints->size () << std::endl;
 
   /**
@@ -300,7 +303,7 @@ main (int argc,
   {
     std::vector<int> neigh_indices (1);
     std::vector<float> neigh_sqr_dists (1);
-    if (!pcl_isfinite (scene_descriptors->at (i).descriptor[0]))  //skipping NaNs
+    if (!std::isfinite (scene_descriptors->at (i).descriptor[0]))  //skipping NaNs
     {
       continue;
     }

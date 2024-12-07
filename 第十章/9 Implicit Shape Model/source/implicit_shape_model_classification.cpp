@@ -30,7 +30,7 @@ main (int argc, char** argv)
   ism.setFeatureEstimator(feature_estimator);
   ism.setSamplingSize (2.0f);
 
-  pcl::ism::ImplicitShapeModelEstimation<153, pcl::PointXYZ, pcl::Normal>::ISMModelPtr model = boost::shared_ptr<pcl::features::ISMModel>
+  pcl::ism::ImplicitShapeModelEstimation<153, pcl::PointXYZ, pcl::Normal>::ISMModelPtr model = std::shared_ptr<pcl::features::ISMModel>
     (new pcl::features::ISMModel);
   std::string file ("trained_ism_model.txt");
   model->loadModelFromfile (file);
@@ -43,7 +43,7 @@ main (int argc, char** argv)
   normal_estimator.setInputCloud (testing_cloud);
   normal_estimator.compute (*testing_normals);
 
-  boost::shared_ptr<pcl::features::ISMVoteList<pcl::PointXYZ> > vote_list = ism.findObjects (
+  std::shared_ptr<pcl::features::ISMVoteList<pcl::PointXYZ> > vote_list = ism.findObjects (
     model,
     testing_cloud,
     testing_normals,
